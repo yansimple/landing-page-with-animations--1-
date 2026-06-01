@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Fest - Obtener Acceso</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            overflow: hidden;
+            background: #0a0a0f;
+        }
+
+        /* Animated Background */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(120, 0, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(255, 0, 150, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 200, 255, 0.2) 0%, transparent 60%),
+                linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 50%, #0a0a0f 100%);
+            animation: backgroundPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes backgroundPulse {
+            0%, 100% { filter: hue-rotate(0deg) brightness(1); }
+            50% { filter: hue-rotate(30deg) brightness(1.2); }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Glowing Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: orbFloat 10s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 245, 255, 0.3);
+            top: -150px;
+            left: -150px;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 0, 255, 0.2);
+            bottom: -200px;
+            right: -200px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 0, 0.2);
+            top: 50%;
+            right: -100px;
+            animation-delay: -3s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        /* CTA Button */
+        .cta-button {
+            position: relative;
+            padding: 25px 60px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: white;
+            background: linear-gradient(135deg, #1a1a2e, #2d2d44);
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+            animation: buttonPulse 2s ease-in-out infinite;
+            z-index: 10;
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 0 40px rgba(255, 0, 255, 0.8);
+            }
+        }
+
+        /* Rainbow Border */
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(90deg, 
+                #ff0000, #ff7700, #ffff00, #00ff00, 
+                #00ffff, #0077ff, #7700ff, #ff00ff, #ff0000);
+            background-size: 400% 400%;
+            border-radius: 65px;
+            z-index: -1;
+            animation: rainbowBorder 2s linear infinite;
+        }
+
+        @keyframes rainbowBorder {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 400% 50%; }
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            right: 3px;
+            bottom: 3px;
+            background: linear-gradient(135deg, #1a1a2e, #2d2d44);
+            border-radius: 57px;
+            z-index: -1;
+        }
+
+        /* Button Shine Effect */
+        .button-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+
+        .cta-button:hover {
+            transform: scale(1.1);
+            box-shadow: 
+                0 0 50px rgba(0, 245, 255, 0.8),
+                0 0 100px rgba(255, 0, 255, 0.5);
+        }
+
+        .cta-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Button Text with Blink */
+        .button-text {
+            position: relative;
+            z-index: 2;
+            animation: textBlink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes textBlink {
+            0%, 100% { opacity: 1; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); }
+            50% { opacity: 0.8; text-shadow: 0 0 20px rgba(0, 245, 255, 1); }
+        }
+
+        /* Scanline Effect */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1) 0px,
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="background"></div>
+    <div class="scanline"></div>
+    
+    <!-- Glowing Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Button -->
+    <a href="https://google.com" class="cta-button">
+        <span class="button-shine"></span>
+        <span class="button-text">Obtener Acceso</span>
+    </a>
+
+    <script>
+        // Create floating particles
+        (function() {
+            const container = document.getElementById('particles');
+            const colors = ['#00f5ff', '#ff00ff', '#ffff00', '#00ff00', '#ff7700'];
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.boxShadow = '0 0 ' + (Math.random() * 10 + 5) + 'px currentColor';
+                container.appendChild(particle);
+            }
+        })();
+        
+        // Mouse parallax
+        document.addEventListener('mousemove', function(e) {
+            const orbs = document.querySelectorAll('.orb');
+            const x = (e.clientX / window.innerWidth - 0.5) * 30;
+            const y = (e.clientY / window.innerHeight - 0.5) * 30;
+            
+            orbs.forEach(function(orb, index) {
+                const factor = (index + 1) * 0.5;
+                orb.style.transform = 'translate(' + (x * factor) + 'px, ' + (y * factor) + 'px)';
+            });
+        });
+    </script>
+</body>
+</html>
